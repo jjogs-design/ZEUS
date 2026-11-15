@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#121417">
+<title>ZEUS – Centro OSINT</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="marca">
+    <h1>⚡ ZEUS</h1>
+    <button id="btn-instalar" class="peq" hidden>Instalar app</button>
+  </div>
+  <p id="titulo-exp" class="sub">Sin expediente abierto</p>
+  <nav id="tabs">
+    <button data-v="buscar" class="on">🔍 Buscar</button>
+    <button data-v="ficha">📋 Ficha</button>
+    <button data-v="enlaces">🔗 Hallazgos</button>
+    <button data-v="crono">🕒 Cronología</button>
+    <button data-v="evidencia">📸 Evidencia</button>
+    <button data-v="informe">📑 Informe</button>
+    <button data-v="historial">🗂️ Historial</button>
+  </nav>
+</header>
+
+<main>
+  <!-- BUSCAR -->
+  <section id="v-buscar" class="vista on">
+    <label for="objetivo">Objetivo de investigación (nombre, apellidos o alias)</label>
+    <input id="objetivo" type="text" placeholder="Ej.: Nombre Apellido, @usuario o nombre de empresa" autocomplete="off" autocapitalize="words">
+    <label for="tipo">Tipo de objetivo</label>
+    <select id="tipo">
+      <option>Persona</option>
+      <option>Entidad / Empresa</option>
+    </select>
+    <h2>Lanzar búsqueda en…</h2>
+    <div id="fuentes" class="fuentes"></div>
+    <p class="nota">Cada búsqueda se abre en tu navegador o en la app correspondiente y queda registrada en el expediente. Las redes con acceso restringido requieren tener la sesión iniciada. Usa ZEUS solo con fines legítimos (periodismo, verificación, seguridad, diligencia debida) y respetando la normativa de protección de datos.</p>
+  </section>
+
+  <!-- FICHA -->
+  <section id="v-ficha" class="vista">
+    <label for="ficha">Notas del analista / perfil del objetivo / hallazgos clave</label>
+    <textarea id="ficha" rows="14" placeholder="Escribe aquí la ficha de la persona o entidad: datos identificativos, vínculos, observaciones…"></textarea>
+  </section>
+
+  <!-- HALLAZGOS -->
+  <section id="v-enlaces" class="vista">
+    <label for="h-fuente">Fuente</label>
+    <select id="h-fuente"></select>
+    <label for="h-url">URL / evidencia</label>
+    <input id="h-url" type="text" inputmode="url" placeholder="https://…" autocomplete="off">
+    <button id="h-add" class="primario">+ Añadir hallazgo</button>
+    <ul id="lista-enlaces" class="lista"></ul>
+  </section>
+
+  <!-- CRONOLOGÍA -->
+  <section id="v-crono" class="vista">
+    <label for="c-fecha">Fecha (DD/MM/AAAA)</label>
+    <input id="c-fecha" type="text" inputmode="numeric" autocomplete="off">
+    <label for="c-evento">Evento / actividad</label>
+    <input id="c-evento" type="text" autocomplete="off">
+    <button id="c-add" class="primario">+ Registrar hito</button>
+    <ul id="lista-crono" class="lista"></ul>
+  </section>
+
+  <!-- EVIDENCIA -->
+  <section id="v-evidencia" class="vista">
+    <label for="cap-desc">Pie de foto / descripción para el informe</label>
+    <input id="cap-desc" type="text" autocomplete="off">
+    <label class="boton primario" for="cap-file">📷 Hacer foto o elegir captura</label>
+    <input id="cap-file" type="file" accept="image/*" multiple hidden>
+    <p class="nota">Consejo: haz una captura de pantalla de la publicación y adjúntala aquí; se incluirá en el anexo gráfico de los informes PDF y Word.</p>
+    <ul id="lista-capturas" class="lista"></ul>
+  </section>
+
+  <!-- INFORME -->
+  <section id="v-informe" class="vista">
+    <button id="btn-redactar" class="primario">⚡ Redactar informe automático</button>
+    <textarea id="informe" rows="14" placeholder="Pulsa «Redactar informe automático» y edítalo si lo necesitas."></textarea>
+    <h2>Exportar</h2>
+    <div class="fila">
+      <button id="x-pdf">📄 PDF</button>
+      <button id="x-docx">📝 Word</button>
+      <button id="x-xlsx">📊 Excel</button>
+    </div>
+    <button id="x-todo" class="exito">🚀 Exportar todo (PDF + Word + Excel)</button>
+    <p class="nota">Los archivos se guardan en la carpeta Descargas del dispositivo.</p>
+    <h2>Copia del expediente</h2>
+    <button id="x-zeus">💾 Exportar expediente (.zeus)</button>
+    <p class="nota">Este archivo se puede abrir también en ZEUS para Windows.</p>
+  </section>
+
+  <!-- HISTORIAL -->
+  <section id="v-historial" class="vista">
+    <button id="btn-nuevo" class="primario">➕ Nueva investigación</button>
+    <label class="boton" for="imp-file">📂 Importar expediente (.zeus)</label>
+    <input id="imp-file" type="file" accept=".zeus,.json,application/json" hidden>
+    <h2>Investigaciones guardadas</h2>
+    <ul id="lista-historial" class="lista"></ul>
+  </section>
+</main>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="export.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
